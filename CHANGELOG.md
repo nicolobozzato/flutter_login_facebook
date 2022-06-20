@@ -1,3 +1,7 @@
+## 1.5.0+2 - 2022-06-20
+
+**Fixed**: User not logged with facebook on Safari get trapped in a loop when login .
+
 ## 1.5.0+1 - 2022-06-17
 
 **Fixed**: Don't compile for iOS.
