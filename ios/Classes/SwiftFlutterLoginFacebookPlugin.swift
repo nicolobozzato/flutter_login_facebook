@@ -28,6 +28,23 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     }
     
     private lazy var _loginManager = LoginManager()
+
+    private var mainWindow: UIWindow? {
+        if let applicationWindow = UIApplication.shared.delegate?.window ?? nil {
+            return applicationWindow
+        }
+
+
+        if #available(iOS 13.0, *) {
+            if let scene = UIApplication.shared.connectedScenes.first(where: { $0.session.role == .windowApplication }),
+               let sceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+               let window = sceneDelegate.window as? UIWindow  {
+                return window
+            }
+        }
+
+        return nil
+    }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let method = PluginMethod(rawValue: call.method) else {
@@ -191,7 +208,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     }
     
     private func logIn(result: @escaping FlutterResult, permissions: [Permission]) {
-        let viewController = (UIApplication.shared.delegate?.window??.rootViewController)!
+        let viewController: UIViewController = (mainWindow?.rootViewController)!
         
         _loginManager.logIn(
             permissions: permissions,
