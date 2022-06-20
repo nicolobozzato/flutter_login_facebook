@@ -29,6 +29,7 @@ public class SwiftFlutterLoginFacebookPlugin: NSObject, FlutterPlugin {
     
     private lazy var _loginManager = LoginManager()
 
+    @available(iOS 13.0, *)
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {
             return
